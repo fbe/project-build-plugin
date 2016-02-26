@@ -232,6 +232,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
+				<version>2.4</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -244,12 +245,28 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.3</version>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
 						<goals>
 							<goal>jar</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.10</version>
+				<executions>
+					<execution>
+						<id>parse.version.property</id>
+						<goals><goal>parse-version</goal></goals>
+						<phase>pre-site</phase>
+						<configuration>
+							<propertyPrefix>pluginVersion</propertyPrefix>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -277,7 +294,7 @@
 			                <server>github</server>
 			                <message>update maven plugin mojo description</message>
 			                <merge>true</merge>
-			                <path>${site.path}</path>
+			                <path>${site.path}/${pluginVersion.majorVersion}.${pluginVersion.minorVersion}</path>
 			            </configuration>
 			        </execution>
 			    </executions>
@@ -306,6 +323,17 @@
 									</pluginExecutionFilter>
 									<action><ignore></ignore></action>
 								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.codehaus.mojo</groupId>
+										<artifactId>build-helper-maven-plugin</artifactId>
+										<versionRange>[1.10,)</versionRange>
+										<goals>
+											<goal>parse-version</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action><ignore></ignore></action>
+								</pluginExecution>
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
@@ -328,6 +356,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-plugin-plugin</artifactId>
+				<version>3.3</version>
 				<configuration>
 					<requirements>
 					  <others>
@@ -342,6 +371,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.8.1</version>
 				<configuration><skip>true</skip></configuration>
 			</plugin>
 	    </plugins>
